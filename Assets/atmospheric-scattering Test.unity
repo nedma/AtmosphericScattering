@@ -67,7 +67,7 @@ RenderSettings:
     sh[26]: 0
   m_DynamicReflectionMultiplier: 1
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.25466967, g: 0.29077744, b: 0.3619648, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1360,7 +1360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163f239264afd624fb2b0d3d1fa33f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RenderingMode: 1
+  RenderingMode: 0
   InscatterDebugOutput: 0
   LightShaftQuality: 1
   ScatteringComputeShader: {fileID: 7200000, guid: df3c1b1294c79e547a1f7039d78a1b65,
