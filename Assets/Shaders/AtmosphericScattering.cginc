@@ -27,7 +27,7 @@
 
 
 
-
+//[nedma]debug macro defines
 //#define INSCATTER_NOPHASE
 
 
@@ -177,6 +177,9 @@ float3 ComputeOpticalDepth(float2 density)
 //-----------------------------------------------------------------------------------------
 // IntegrateInscattering
 //-----------------------------------------------------------------------------------------
+/* [nedma]Parameter explaination
+*	distanceScale: equals to scale the rayLength, which means scales the accumulated inscattering
+*/
 float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, float3 planetCenter, float distanceScale, float3 lightDir, float sampleCount, out float4 extinction)
 {
 	float3 step = rayDir * (rayLength / sampleCount);
@@ -207,7 +210,7 @@ float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, fl
 
 		prevLocalDensity = localDensity;
 
-		// extinct localInscatterR & localInscatterM by density parameters
+		// [nedma]extinct localDensity by density parameters and _ExtinctionR/M
 		float3 localInscatterR, localInscatterM;
 		ComputeLocalInscattering(localDensity, densityPA, densityCP, localInscatterR, localInscatterM);
 		
@@ -218,7 +221,7 @@ float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, fl
 		prevLocalInscatterM = localInscatterM;
 	}
 
-	float3 m = scatterM;
+	float3 mForSun = scatterM;
 
 #ifndef INSCATTER_NOPHASE
 	// phase function
@@ -227,7 +230,7 @@ float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, fl
 
 	//scatterR = 0;
 	float3 lightInscatter = (scatterR * _ScatteringR + scatterM * _ScatteringM) * _IncomingLight.xyz;
-	lightInscatter += RenderSun(m, dot(rayDir, -lightDir.xyz)) * _SunIntensity;
+	lightInscatter += RenderSun(mForSun, dot(rayDir, -lightDir.xyz)) * _SunIntensity;
 	float3 lightExtinction = exp(-(densityCP.x * _ExtinctionR + densityCP.y * _ExtinctionM));
 
 	extinction = float4(lightExtinction, 0);

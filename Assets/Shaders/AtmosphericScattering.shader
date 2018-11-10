@@ -242,6 +242,7 @@ Shader "Hidden/AtmosphericScattering"
 				float3 wpos : TEXCOORD1;
 			};
 
+			//[nedma]debug macro defines
 			//#define DEBUG_OUTPUT_EXT
 			//#define DEBUG_OUTPUT_SHADOW
 			//#define DEBUG_OUTPUT_INSCATTERING
