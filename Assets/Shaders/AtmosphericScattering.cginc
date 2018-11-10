@@ -25,6 +25,13 @@
 //  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
+
+
+#define INSCATTER_NOPHASE
+
+
+
 #define PI 3.14159265359
 
 float _AtmosphereHeight;
@@ -200,6 +207,7 @@ float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, fl
 
 		prevLocalDensity = localDensity;
 
+		// extinct localInscatterR & localInscatterM by density parameters
 		float3 localInscatterR, localInscatterM;
 		ComputeLocalInscattering(localDensity, densityPA, densityCP, localInscatterR, localInscatterM);
 		
@@ -211,8 +219,12 @@ float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, fl
 	}
 
 	float3 m = scatterM;
+
+#ifndef INSCATTER_NOPHASE
 	// phase function
 	ApplyPhaseFunction(scatterR, scatterM, dot(rayDir, -lightDir.xyz));
+#endif
+
 	//scatterR = 0;
 	float3 lightInscatter = (scatterR * _ScatteringR + scatterM * _ScatteringM) * _IncomingLight.xyz;
 	lightInscatter += RenderSun(m, dot(rayDir, -lightDir.xyz)) * _SunIntensity;

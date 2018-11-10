@@ -242,6 +242,10 @@ Shader "Hidden/AtmosphericScattering"
 				float3 wpos : TEXCOORD1;
 			};
 
+			//#define DEBUG_OUTPUT_SHADOW
+			#define DEBUG_OUTPUT_INSCATTERING
+
+
 			PSInput vertDir(VSInput i)
 			{
 				PSInput o;
@@ -293,6 +297,10 @@ Shader "Hidden/AtmosphericScattering"
 				shadow = (pow(shadow, 4) + shadow) / 2;
 				shadow = max(0.1, shadow);
 
+#ifdef DEBUG_OUTPUT_SHADOW
+				return half4(shadow, shadow, shadow, 1);
+#endif
+
 				inscattering *= shadow;
 #endif
 				float4 background = tex2D(_Background, uv);
@@ -307,6 +315,15 @@ Shader "Hidden/AtmosphericScattering"
 				}
 					
 				float4 c = background * extinction + inscattering;
+
+
+#ifdef DEBUG_OUTPUT_INSCATTERING
+				c = inscattering;
+#elif defined(DEBUG_OUTPUT_EXT)
+				c = extinction;
+#endif
+
+
 				return c;
 			}
 			ENDCG
