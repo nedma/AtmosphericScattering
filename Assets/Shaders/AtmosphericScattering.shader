@@ -209,7 +209,7 @@ Shader "Hidden/AtmosphericScattering"
 		}
 
 			
-		// pass 3 - atmocpheric fog
+		// pass 3 - atmospheric fog
 		Pass
 		{
 			ZTest Always Cull Off ZWrite Off
@@ -300,9 +300,9 @@ Shader "Hidden/AtmosphericScattering"
 				shadow = (pow(shadow, 4) + shadow) / 2;
 				shadow = max(0.1, shadow);
 
-#ifdef DEBUG_OUTPUT_SHADOW
+#	ifdef DEBUG_OUTPUT_SHADOW
 				return half4(shadow, shadow, shadow, 1);
-#endif
+#	endif
 
 				inscattering *= shadow;
 #endif
