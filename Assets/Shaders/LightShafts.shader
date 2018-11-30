@@ -658,11 +658,12 @@ Shader "Hidden/AtmosphericScattering/LightShafts"
 				float3 wpos = i.wpos;
 				float3 rayStart = _WorldSpaceCameraPos;
 				float3 rayDir = wpos - _WorldSpaceCameraPos;
-				rayDir *= linearDepth;
+				rayDir *= linearDepth; // [nedma]ray from camera to the target pixel's world position
 
 				float rayLength = length(rayDir);
 				rayDir /= rayLength;
 
+				// [nedma]This color logically means the ratio of light unoccluded part to the whole view line segment(surface reflection light path), so it could be used to approximate the inscattering light amount
 				float color = LightShafts(i.pos.xy, rayStart, rayDir, rayLength);
 
 				/*if (linearDepth > _ProjectionParams.z * 0.99)
