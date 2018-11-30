@@ -206,7 +206,7 @@ float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, fl
 		float3 p = rayStart + step * s;
 
 		GetAtmosphereDensity(p, planetCenter, lightDir, localDensity, densityPA);
-		densityCP += (localDensity + prevLocalDensity) * (stepSize / 2.0);
+		densityCP += (localDensity + prevLocalDensity) * (stepSize / 2.0);	// densityCP is finnally the integral of height based density, = avg density * distance
 
 		prevLocalDensity = localDensity;
 
@@ -234,6 +234,8 @@ float4 IntegrateInscattering(float3 rayStart, float3 rayDir, float rayLength, fl
 	float3 lightExtinction = exp(-(densityCP.x * _ExtinctionR + densityCP.y * _ExtinctionM));
 
 	extinction = float4(lightExtinction, 0);
+	//extinction = float4(densityCP.x * 0.0001, 0, 0,0);
+	//extinction = float4(densityCP.y * 0.0001, 0, 0, 0);
 	return float4(lightInscatter, 1);
 }
 

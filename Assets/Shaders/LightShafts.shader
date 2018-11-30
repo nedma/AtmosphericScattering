@@ -644,7 +644,7 @@ Shader "Hidden/AtmosphericScattering/LightShafts"
 
 				o.pos = UnityObjectToClipPos(i.vertex);
 				o.uv = i.uv;
-				o.wpos = _FrustumCorners[i.vertexId];
+				o.wpos = _FrustumCorners[i.vertexId]; // world positions of corners of the far clip plane
 
 				return o;
 			}
