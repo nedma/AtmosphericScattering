@@ -1316,7 +1316,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: 3
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -1361,7 +1361,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RenderingMode: 0
-  InscatterDebugOutput: 0
   LightShaftQuality: 1
   ScatteringComputeShader: {fileID: 7200000, guid: df3c1b1294c79e547a1f7039d78a1b65,
     type: 3}
